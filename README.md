@@ -67,6 +67,11 @@ academic-score-calculator/
     └── mu_sgpa_percentage.html  # Mumbai University specific
 ```
 ## 🖥️ Preview
+<img width="1918" height="1035" alt="Scorify-Preview01" src="https://github.com/user-attachments/assets/f624f2c0-4fdc-4b37-9c2b-53ba6b56a457" />
+<img width="1919" height="1036" alt="Scorify-Preview02" src="https://github.com/user-attachments/assets/ebd9001b-bb37-4d26-902e-00cdd18c7a1c" />
+<img width="1919" height="1034" alt="Scorify-Preview03" src="https://github.com/user-attachments/assets/f2c9ec41-76c1-4d66-b0cc-f7bc0bca1bdf" />
+<img width="1916" height="1035" alt="Scorify-Preview04" src="https://github.com/user-attachments/assets/9f705a68-014c-4564-b4d7-bc0c7be29128" />
+<img width="1919" height="1038" alt="Scorify-Preview05" src="https://github.com/user-attachments/assets/8fd51f7a-ec7e-4b26-9d92-97244d26262c" />
 
 <div align="center">
   
