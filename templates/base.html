@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html class="{{ theme }}">
+<head>
+  <title>Scorify - Don't Guess. Just Check</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><path d='M20 30 Q 50 40 80 30 V 80 Q 50 90 20 80 Z M 50 40 V 90' fill='none' stroke='white' stroke-width='8'/></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+
+  <link rel="stylesheet" href="/static/style.css">
+  
+  <script>
+    function toggleTheme(){
+      const html = document.documentElement;
+      const current = html.classList.contains('dark') ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      
+      fetch('/set-theme/' + next).then(() => {
+        location.reload();
+      });
+    }
+
+    function generateInputs(val) {
+        const container = document.getElementById('sgpa-inputs');
+        if(!container) return;
+        
+        container.innerHTML = '';
+        
+        const count = parseInt(val);
+        if (isNaN(count) || count < 1) return;
+
+        for (let i = 0; i < count; i++) {
+            const div = document.createElement('div');
+            div.className = "mt-3";
+            
+            const label = document.createElement('label');
+            label.className = "text-sm text-gray-600 dark:text-gray-300 ml-1";
+            label.innerText = `Semester ${i + 1} SGPA`;
+            
+            const input = document.createElement('input');
+            input.type = "number";
+            input.step = "0.01";
+            input.name = `sgpa${i}`;
+            input.placeholder = `Enter SGPA for Sem ${i + 1}`;
+            input.required = true;
+            input.className = "w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 outline-none";
+            
+            div.appendChild(label);
+            div.appendChild(input);
+            container.appendChild(div);
+        }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white flex flex-col">
+
+<nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="flex items-center gap-2 group">
+      <div class="bg-blue-600 text-white p-2 rounded-lg group-hover:scale-105 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <span class="text-xl font-bold tracking-tight text-gray-800 dark:text-white">SCORIFY</span>
+    </a>
+
+    <button onclick="toggleTheme()" class="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
+        
+        <div class="relative w-5 h-5 text-gray-500 dark:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 w-full h-full transition-transform duration-500 rotate-0 dark:-rotate-90 dark:scale-0 opacity-100 dark:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 w-full h-full transition-transform duration-500 rotate-90 scale-0 dark:rotate-0 dark:scale-100 opacity-0 dark:opacity-100 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+        </div>
+        
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-200">Switch Theme</span>
+    </button>
+  </div>
+</nav>
+
+<div class="container mx-auto p-6 flex-grow">
+  {% block content %}{% endblock %}
+</div>
+
+<footer class="mt-auto bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300">
+  
+  <div class="container mx-auto px-6 py-4 flex justify-center items-center text-xs text-gray-500 dark:text-gray-400">
+      <p>
+          &copy; <span id="year"></span> Scorify
+          <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
+          All rights reserved.
+          <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
+          Designed & Developed by
+          <a href="https://anshu-portfolio042.vercel.app/" class="font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+              Anshu Kushwaha
+          </a>
+      </p>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</footer>
+
+</body>
+</html>
